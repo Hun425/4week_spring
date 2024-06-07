@@ -1,13 +1,8 @@
-# 
 
-
-<p align="middle" >
-  <img width="400px;" src="https://user-images.githubusercontent.com/50367798/62032415-8f0be900-b224-11e9-977d-131a9a27edac.png"/>
-</p>
 <h2 align="middle">4week_spring</h2>
 <p align="middle">
-  <img src="![다운로드](https://github.com/Hun425/4week_spring/assets/147483675/f34b3d10-153a-445b-b29c-a98fe7f639c3)
-" alt="template version"/>
+  ![다운로드](https://github.com/Hun425/4week_spring/assets/147483675/c0d4f136-a8a8-4f75-b7a1-01a1de5ee139)
+
 
 </p>
 <p align="middle">스프링 4주간 기능 구현 마스터하기!</p>
