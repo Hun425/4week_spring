@@ -1,7 +1,7 @@
 
 <h2 align="middle">4week_spring</h2>
 <p align="middle">
-<img src="https://github.com/Hun425/4week_spring/assets/147483675/c0d4f136-a8a8-4f75-b7a1-01a1de5ee139" alt="No Image">
+<img src="https://github.com/Hun425/4week_spring/assets/147483675/c0d4f136-a8a8-4f75-b7a1-01a1de5ee139" alt="No Image">
 
 
 </p>
