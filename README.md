@@ -14,6 +14,7 @@
 ## 게시판 CRUD + 로그인/로그아웃
 
 ### 기능 명세
+<br>
 
 - 게시글 작성
     - 제목
@@ -46,7 +47,13 @@
 
 <br>
 
-# 
+### 다이어 그램
+
+<br>
+
+![개념설계도 drawio](https://github.com/Hun425/4week_spring/assets/147483675/c294d9ee-96aa-47bf-8bad-f5f16716ae58)
+
+![1week_spring](https://github.com/Hun425/4week_spring/assets/147483675/29826ca9-f7f3-477e-b5a2-4dfde4382365)
 
 
 
