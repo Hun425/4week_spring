@@ -33,6 +33,11 @@ public class BoardController {
         return "";
     }
 
+    @GetMapping("/")
+    public String boardIndex(){
+        return "index";
+    }
+
     @GetMapping("/post/list")
     public String boardList(){
 
