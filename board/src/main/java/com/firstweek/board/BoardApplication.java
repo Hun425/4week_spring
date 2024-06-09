@@ -1,13 +1,13 @@
-package firstweek.firstweek;
+package com.firstweek.board;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FirstweekApplication {
+public class BoardApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FirstweekApplication.class, args);
+		SpringApplication.run(BoardApplication.class, args);
 	}
 
 }

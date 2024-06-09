@@ -1,10 +1,10 @@
-package firstweek.firstweek;
+package com.firstweek.board;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FirstweekApplicationTests {
+class BoardApplicationTests {
 
 	@Test
 	void contextLoads() {
