@@ -16,8 +16,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests((requests)->requests
-                        .requestMatchers("/login","/register","/post").permitAll()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/login","/register","/").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form->{
                     form.loginPage("/login");
@@ -28,7 +28,8 @@ public class SecurityConfig {
                 }).logout(logout->{
                     logout.logoutUrl("/logout");
                     logout.logoutSuccessUrl("/");
-                    logout.permitAll();
+                    logout.invalidateHttpSession(true); // HTTP 세션 무효화
+                    logout.deleteCookies("JSESSIONID"); // 쿠키 삭제
                 });
         http.csrf(csrf->csrf.disable());
 
