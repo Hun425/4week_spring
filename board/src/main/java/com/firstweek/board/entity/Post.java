@@ -1,22 +1,23 @@
 package com.firstweek.board.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Post {
 
     @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
 
     private String title;
     private String content;
@@ -28,4 +29,10 @@ public class Post {
 
     @CreationTimestamp
     private LocalDateTime created_at;
+
+    @OneToMany(mappedBy="post", fetch = FetchType.EAGER)
+    private List<Comment> comments = new ArrayList<>();
+
+
+
 }

@@ -1,6 +1,7 @@
 package com.firstweek.board.config;
 
 
+import com.firstweek.board.handler.UserLoginFailHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder;
@@ -13,18 +14,19 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, UserLoginFailHandler userLoginFailHandler) throws Exception {
         http
                 .authorizeRequests((requests)->requests
                         .requestMatchers("/login","/register","/").permitAll()
+                        .requestMatchers("/post/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form->{
                     form.loginPage("/login");
                     form.loginProcessingUrl("/login");
                     form.defaultSuccessUrl("/");
-                    form.failureUrl("/login?error");
-                    form.permitAll();
+                    form.failureHandler(userLoginFailHandler);
+
                 }).logout(logout->{
                     logout.logoutUrl("/logout");
                     logout.logoutSuccessUrl("/");

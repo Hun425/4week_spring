@@ -26,7 +26,7 @@ public class BoardService {
 
     public Post getPost(int postId){
 
-        return boardRepository.getById(postId);
+        return boardRepository.findById(postId).orElse(null);
     }
 
     public Post deletePost(int postId){
