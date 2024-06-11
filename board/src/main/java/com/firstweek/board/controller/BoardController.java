@@ -87,4 +87,13 @@ public class BoardController {
         return new ResponseEntity<>("ok",HttpStatus.OK);
     }
 
+    @PostMapping("/post/{id}/like")
+    @ResponseBody
+    public ResponseEntity<String> likePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id){
+        boardService.likePost(id);
+
+        return new ResponseEntity<>("ok",HttpStatus.OK);
+    }
+
+
 }

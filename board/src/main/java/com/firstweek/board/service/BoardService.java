@@ -39,5 +39,22 @@ public class BoardService {
         return post;
     }
 
+    public Post likePost(int postId){
+        Post post = boardRepository.findById(postId).orElseThrow(()->new PostNotFoundException(postId+"번 게시글이 존재하지 않습니다."));
 
+        int like = post.getLikes();
+        post.setLikes(++like);
+        boardRepository.save(post);
+
+        return post;
+    }
+
+    public Post dislikePost(int postId){
+        Post post = boardRepository.findById(postId).orElseThrow(()->new PostNotFoundException(postId+"번 게시글이 존재하지 않습니다."));
+
+        int dislike = post.getDislikes();
+        post.setDislikes(++dislike);
+        boardRepository.save(post);
+        return post;
+    }
 }

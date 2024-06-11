@@ -22,7 +22,6 @@ public class SecurityConfig {
                         .anyRequest().permitAll()
                 )
                 .formLogin(form->{
-                    form.loginPage("/login");
                     form.loginProcessingUrl("/login");
                     form.defaultSuccessUrl("/");
                     form.failureHandler(userLoginFailHandler);
