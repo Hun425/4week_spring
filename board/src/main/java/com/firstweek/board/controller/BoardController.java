@@ -1,11 +1,15 @@
 package com.firstweek.board.controller;
 
+import com.firstweek.board.entity.CustomUser;
 import com.firstweek.board.entity.Post;
+import com.firstweek.board.entity.User;
 import com.firstweek.board.exception.PostNotFoundException;
 import com.firstweek.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +31,14 @@ public class BoardController {
     }
 
     @PostMapping("/post")
-    public String boardPost(Post post){
+    @ResponseBody
+    public String boardPost(@AuthenticationPrincipal CustomUser user, Post post){
 
-        boardService.savePost(post);
+        post.setAuthor_id(user.getUserId());
+        boardService.savePost(user,post);
 
-        return "";
+        String result = post.toString();
+        return result;
     }
 
     @GetMapping("/")
@@ -69,13 +76,14 @@ public class BoardController {
 
     @PostMapping("/post/update/{id}")
     @ResponseBody
-    public ResponseEntity<String> updatePost(@PathVariable("id") int id,Post post){
+    public ResponseEntity<String> updatePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id, Post post){
         Post nowPost = boardService.getPost(id);
 
+        nowPost.setAuthor_id(user.getUserId());
         nowPost.setTitle(post.getTitle());
         nowPost.setContent(post.getContent());
 
-        boardService.savePost(nowPost);
+        boardService.savePost(user,nowPost);
         return new ResponseEntity<>("ok",HttpStatus.OK);
     }
 

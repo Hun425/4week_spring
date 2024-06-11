@@ -17,13 +17,14 @@ import java.util.List;
 public class Post {
 
     @jakarta.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String title;
     private String content;
     private int views = 0;
     private int comment_count;
-    private String author_id;
+    private int author_id;
     private int likes = 0;
     private int dislikes = 0;
 
@@ -33,6 +34,8 @@ public class Post {
     @OneToMany(mappedBy="post", fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
 
-
-
+    @Override
+    public String toString() {
+        return "Post{" + "id=" + id + ", title='" + title + '\'' + ", content='" + content + '\'' + ", views=" + views + ", comment_count=" + comment_count + ", author_id='" + author_id + '\'' + ", likes=" + likes + ", dislikes=" + dislikes + ", created_at=" + created_at + ", comments=" + comments + '}';
+    }
 }

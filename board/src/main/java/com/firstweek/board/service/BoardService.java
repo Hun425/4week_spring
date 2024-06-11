@@ -1,6 +1,8 @@
 package com.firstweek.board.service;
 
+import com.firstweek.board.entity.CustomUser;
 import com.firstweek.board.entity.Post;
+import com.firstweek.board.entity.User;
 import com.firstweek.board.exception.PostNotFoundException;
 import com.firstweek.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    public void savePost(Post post){
+    public void savePost(CustomUser user, Post post){
 
         boardRepository.save(post);
     }
