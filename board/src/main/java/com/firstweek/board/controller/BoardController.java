@@ -1,15 +1,13 @@
 package com.firstweek.board.controller;
 
-import com.firstweek.board.entity.CustomUser;
+import com.firstweek.security.domain.CustomUser;
 import com.firstweek.board.entity.Post;
-import com.firstweek.board.entity.User;
 import com.firstweek.board.exception.PostNotFoundException;
 import com.firstweek.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +48,6 @@ public class BoardController {
     @ResponseBody
     public String boardList(Model model){
 
-        model.addAttribute("list",boardService.listPost());
         String postList = boardService.listPost().toString();
         return postList;
     }
@@ -93,6 +90,14 @@ public class BoardController {
         boardService.likePost(id);
 
         return new ResponseEntity<>("ok",HttpStatus.OK);
+    }
+
+    @PostMapping("/post/{id}/dislike")
+    @ResponseBody
+    public ResponseEntity<Post> dislikePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id){
+        Post post = boardService.dislikePost(id);
+
+        return new ResponseEntity<>(post,HttpStatus.OK);
     }
 
 

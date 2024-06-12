@@ -1,9 +1,9 @@
-package com.firstweek.board.controller;
+package com.firstweek.comment.controller;
 
-import com.firstweek.board.entity.Comment;
+import com.firstweek.comment.domain.Comment;
 import com.firstweek.board.entity.Post;
 import com.firstweek.board.service.BoardService;
-import com.firstweek.board.service.CommentService;
+import com.firstweek.comment.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,20 +25,21 @@ public class CommentController {
 
     @PostMapping("/post/{id}")
     @ResponseBody
-    public ResponseEntity<String> postComment(@PathVariable("id") int postId, @RequestBody Comment comment) {
+    public ResponseEntity<String> postComment(@PathVariable("id") int postId, @RequestParam String content) {
 
         Post post = boardService.getPost(postId);
 
         if(post == null) {
             return ResponseEntity.notFound().build();
         }
-
+        Comment comment = new Comment();
         comment.setPost(post);
-
+        comment.setContent(content);
         Comment savedComment = commentService.savedComment(comment);
 
         return ResponseEntity.ok().body(savedComment.toString());
     }
+
 
 
 }

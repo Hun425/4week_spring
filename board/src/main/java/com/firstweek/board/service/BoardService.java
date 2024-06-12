@@ -1,8 +1,7 @@
 package com.firstweek.board.service;
 
-import com.firstweek.board.entity.CustomUser;
+import com.firstweek.security.domain.CustomUser;
 import com.firstweek.board.entity.Post;
-import com.firstweek.board.entity.User;
 import com.firstweek.board.exception.PostNotFoundException;
 import com.firstweek.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;

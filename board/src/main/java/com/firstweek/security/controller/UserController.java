@@ -1,11 +1,9 @@
-package com.firstweek.board.controller;
+package com.firstweek.security.controller;
 
-import com.firstweek.board.entity.User;
-import com.firstweek.board.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.firstweek.security.domain.User;
+import com.firstweek.security.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller

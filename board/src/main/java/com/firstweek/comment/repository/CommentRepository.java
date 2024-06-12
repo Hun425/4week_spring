@@ -1,6 +1,6 @@
-package com.firstweek.board.repository;
+package com.firstweek.comment.repository;
 
-import com.firstweek.board.entity.Comment;
+import com.firstweek.comment.domain.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommentRepository extends JpaRepository<Comment, Integer> {

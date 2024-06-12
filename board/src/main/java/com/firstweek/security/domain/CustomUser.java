@@ -1,14 +1,15 @@
-package com.firstweek.board.entity;
+package com.firstweek.security.domain;
 
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-
+@NoArgsConstructor
 public class CustomUser implements UserDetails {
 
-    private final User user;
+    private  User user;
 
     public CustomUser(User user) {
         this.user = user;

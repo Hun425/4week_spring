@@ -1,4 +1,4 @@
-package com.firstweek.board.handler;
+package com.firstweek.security.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

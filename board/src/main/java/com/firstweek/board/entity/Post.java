@@ -1,12 +1,11 @@
 package com.firstweek.board.entity;
 
+import com.firstweek.comment.domain.Comment;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +21,11 @@ public class Post {
 
     private String title;
     private String content;
-    private int views = 0;
-    private int comment_count;
-    private int author_id;
-    private int likes = 0;
-    private int dislikes = 0;
+    private Integer views = 0;
+    private Integer comment_count;
+    private Integer author_id;
+    private Integer likes = 0;
+    private Integer dislikes = 0;
 
     @CreationTimestamp
     private LocalDateTime created_at;
