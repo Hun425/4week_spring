@@ -3,6 +3,7 @@ package com.firstweek.security.service;
 import com.firstweek.security.domain.CustomUser;
 import com.firstweek.security.domain.User;
 import com.firstweek.security.jwt.JwtUtil;
+import com.firstweek.security.jwt.TokenPair;
 import com.firstweek.security.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -34,15 +35,15 @@ public class LoginService implements AuthService {
 
     @Override
     @Transactional
-    public String login(String username){
+    public TokenPair login(String username){
         User user = userRepository.findByUsername(username);
         if(user==null){
             throw new UsernameNotFoundException("존재하지 않는 유저입니다");
         }
 
         CustomUser info = new CustomUser(userRepository.findByUsername(username));
-        String accessToken = jwtUtil.generateToken(info);
+        TokenPair Token = jwtUtil.generateToken(info);
 
-        return accessToken;
+        return Token;
     }
 }

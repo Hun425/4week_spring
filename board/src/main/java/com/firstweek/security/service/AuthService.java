@@ -1,5 +1,7 @@
 package com.firstweek.security.service;
 
+import com.firstweek.security.jwt.TokenPair;
+
 public interface AuthService {
-    String login(String username);
+    TokenPair login(String username);
 }

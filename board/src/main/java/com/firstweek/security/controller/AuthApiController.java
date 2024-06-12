@@ -3,6 +3,7 @@ package com.firstweek.security.controller;
 
 import com.firstweek.security.domain.CustomUser;
 import com.firstweek.security.domain.User;
+import com.firstweek.security.jwt.TokenPair;
 import com.firstweek.security.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,11 +18,11 @@ public class AuthApiController {
     private final AuthService authService;
 
     @PostMapping("login")
-    public ResponseEntity<String> getMemberProfile(
+    public ResponseEntity<TokenPair> getMemberProfile(
             @Validated @RequestBody User user
             ){
         CustomUser customUser = new CustomUser(user);
-        String token = this.authService.login(customUser.getUsername());
+        TokenPair token = this.authService.login(customUser.getUsername());
 
         return ResponseEntity.status(HttpStatus.OK).body(token);
     }

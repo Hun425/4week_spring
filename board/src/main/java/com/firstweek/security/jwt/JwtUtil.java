@@ -18,14 +18,16 @@ public class JwtUtil {
 
     private final Key key;
     private final long accessTokenExpTime;
-
+    private final long refreshTokenExpTime;
     public JwtUtil(
             @Value("${jwt.secret}") String secretKey, //lombok @Value 아님 주의 !
-            @Value("${jwt.expiration_time}") long accessTokenExpTime
+            @Value("${jwt.expiration_time}") long accessTokenExpTime,
+            @Value("${jwt.refresh_token_expiration_time}") long refreshTokenExpTime
     ){
         byte[] keyBytes = secretKey.getBytes();
-        this.key = Keys.hmacShaKeyFor(keyBytes);
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // 보안 키 생성
         this.accessTokenExpTime = accessTokenExpTime;
+        this.refreshTokenExpTime = refreshTokenExpTime;
     }
 
     /**
@@ -33,8 +35,11 @@ public class JwtUtil {
      * @param customUser
      * @return Access Token String
      */
-    public String generateToken(CustomUser customUser) {
-        return createToken(customUser,accessTokenExpTime);
+    public TokenPair generateToken(CustomUser customUser) {
+        String accessToken = createToken(customUser,accessTokenExpTime);
+        String refreshToken = createToken(customUser,refreshTokenExpTime);
+
+        return new TokenPair(accessToken,refreshToken);
     }
 
     /**
