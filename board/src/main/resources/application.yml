@@ -11,5 +11,5 @@ spring:
 jwt:
   expiration_time: 86400000
   secret: mySuperSecretKeyForJwtToken12345!
-  refresh_token_expiration_time: mySuperSecretKeyForJwtToken54321!
+  refresh_token_expiration_time: 126000000
 

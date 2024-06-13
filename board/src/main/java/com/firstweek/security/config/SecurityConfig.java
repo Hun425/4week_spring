@@ -2,6 +2,7 @@ package com.firstweek.security.config;
 
 
 import com.firstweek.security.filter.JwtAuthFilter;
+import com.firstweek.security.filter.RefreshTokenFilter;
 import com.firstweek.security.handler.UserLoginFailHandler;
 import com.firstweek.security.jwt.JwtUtil;
 import com.firstweek.security.service.UserService;
@@ -37,7 +38,7 @@ public class SecurityConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, UserLoginFailHandler userLoginFailHandler) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, UserLoginFailHandler userLoginFailHandler, RefreshTokenFilter refreshTokenFilter) throws Exception {
 
         http
                 .authorizeRequests((requests)->requests
@@ -66,6 +67,7 @@ public class SecurityConfig {
 
         //JSTAuthFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
         http.addFilterBefore(new JwtAuthFilter(userService,jwtUtil), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(refreshTokenFilter, JwtAuthFilter.class);
 
         http.exceptionHandling((exception)->{});
 

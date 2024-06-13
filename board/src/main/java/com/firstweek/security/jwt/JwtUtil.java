@@ -19,6 +19,7 @@ public class JwtUtil {
     private final Key key;
     private final long accessTokenExpTime;
     private final long refreshTokenExpTime;
+
     public JwtUtil(
             @Value("${jwt.secret}") String secretKey, //lombok @Value 아님 주의 !
             @Value("${jwt.expiration_time}") long accessTokenExpTime,

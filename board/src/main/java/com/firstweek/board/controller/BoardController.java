@@ -23,9 +23,9 @@ public class BoardController {
     }
 
     @GetMapping("/post") // localhost:8080/post
-    public String boardWriteForm(){
+    public ResponseEntity<String> boardWriteForm(){
 
-        return "boardwrite";
+        return new ResponseEntity<>("ok",HttpStatus.OK);
     }
 
     @PostMapping("/post")
