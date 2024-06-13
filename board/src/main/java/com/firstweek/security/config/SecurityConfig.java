@@ -71,11 +71,7 @@ public class SecurityConfig {
 
         http.exceptionHandling((exception)->{});
 
-
-
         return http.build();
-
-
     }
 
     @Bean

@@ -30,34 +30,34 @@ public class BoardController {
 
     @PostMapping("/post")
     @ResponseBody
-    public String boardPost(@AuthenticationPrincipal CustomUser user, Post post){
+    public ResponseEntity<String> boardPost(@AuthenticationPrincipal CustomUser user, Post post){
 
         post.setAuthor_id(user.getUserId());
         boardService.savePost(user,post);
 
         String result = post.toString();
-        return result;
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/")
-    public String boardIndex(){
-        return "index";
+    public ResponseEntity<String> boardIndex(){
+        return new ResponseEntity<>("ok",HttpStatus.OK);
     }
 
     @GetMapping("/post/list")
     @ResponseBody
-    public String boardList(Model model){
+    public ResponseEntity<String> boardList(Model model){
 
         String postList = boardService.listPost().toString();
-        return postList;
+        return new ResponseEntity<>(postList, HttpStatus.OK);
     }
 
     @GetMapping("/post/{id}")
     @ResponseBody
-    public String boardDetail(@PathVariable("id") int id){
+    public ResponseEntity<String> boardDetail(@PathVariable("id") int id){
         String post = boardService.getPost(id).toString();
 
-        return post;
+        return new ResponseEntity<>(post, HttpStatus.OK);
     }
 
     @DeleteMapping("/post/{id}")

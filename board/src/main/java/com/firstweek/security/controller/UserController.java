@@ -2,6 +2,8 @@ package com.firstweek.security.controller;
 
 import com.firstweek.security.domain.User;
 import com.firstweek.security.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,19 +19,19 @@ public class UserController {
 
 
     @GetMapping("/register")
-    public String GetRegisterForm() {
-        return "register";
+    public ResponseEntity<String> GetRegisterForm() {
+        return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
     @PostMapping("/register")
-    public String PostRegisterForm(User user) {
+    public ResponseEntity<String> PostRegisterForm(User user) {
         userService.save(user);
 
-        return "boardwrite";
+        return new ResponseEntity<>(user.toString(), HttpStatus.OK);
     }
 
     @GetMapping("/login")
-    public String GetLoginForm(){
-        return "login";
+    public ResponseEntity<String> GetLoginForm(){
+        return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 }

@@ -23,7 +23,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
-
+        String refreshToken = request.getHeader("refreshToken");
         //JWT가 헤더에 있으면
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
@@ -39,9 +39,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
                     //현재 Request와 Security context에 접근권한 설정
-
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
+
             }
         }
 
