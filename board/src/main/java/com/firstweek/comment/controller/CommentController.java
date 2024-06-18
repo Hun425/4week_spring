@@ -2,7 +2,7 @@ package com.firstweek.comment.controller;
 
 import com.firstweek.comment.domain.Comment;
 import com.firstweek.board.entity.Post;
-import com.firstweek.board.service.BoardService;
+import com.firstweek.board.service.BoardServiceImpl;
 import com.firstweek.comment.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public class CommentController {
 
     @Autowired
-    private final BoardService boardService;
+    private final BoardServiceImpl boardService;
 
     @Autowired
     private final CommentService commentService;
 
-    public CommentController(BoardService boardService, CommentService commentService) {
+    public CommentController(BoardServiceImpl boardService, CommentService commentService) {
         this.boardService = boardService;
         this.commentService = commentService;
     }

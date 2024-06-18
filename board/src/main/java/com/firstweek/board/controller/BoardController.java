@@ -1,9 +1,10 @@
 package com.firstweek.board.controller;
 
+import com.firstweek.board.dto.BoardResponseDto;
 import com.firstweek.security.domain.CustomUser;
 import com.firstweek.board.entity.Post;
 import com.firstweek.board.exception.PostNotFoundException;
-import com.firstweek.board.service.BoardService;
+import com.firstweek.board.service.BoardServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class BoardController {
 
     @Autowired
-    private final BoardService boardService;
+    private final BoardServiceImpl boardService;
 
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardServiceImpl boardService) {
         this.boardService = boardService;
     }
 
@@ -30,74 +33,50 @@ public class BoardController {
 
     @PostMapping("/post")
     @ResponseBody
-    public ResponseEntity<String> boardPost(@AuthenticationPrincipal CustomUser user, Post post){
-
-        post.setAuthor_id(user.getUserId());
-        boardService.savePost(user,post);
-
-        String result = post.toString();
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<BoardResponseDto> boardPost(@AuthenticationPrincipal CustomUser user, Post post){
+        return boardService.savePost(user,post);
     }
 
     @GetMapping("/")
-    public ResponseEntity<String> boardIndex(){
+    public ResponseEntity<String> boardIndex(){ // 메인 홈페이지라서 일반 스트링 사용
         return new ResponseEntity<>("ok",HttpStatus.OK);
     }
 
     @GetMapping("/post/list")
     @ResponseBody
-    public ResponseEntity<String> boardList(Model model){
-
-        String postList = boardService.listPost().toString();
-        return new ResponseEntity<>(postList, HttpStatus.OK);
+    public ResponseEntity<List<BoardResponseDto>> boardList(Model model){
+        return boardService.listPost();
     }
 
     @GetMapping("/post/{id}")
     @ResponseBody
-    public ResponseEntity<String> boardDetail(@PathVariable("id") int id){
-        String post = boardService.getPost(id).toString();
-
-        return new ResponseEntity<>(post, HttpStatus.OK);
+    public ResponseEntity<BoardResponseDto> boardDetail(@PathVariable("id") int id){
+        return boardService.getPost(id);
     }
 
     @DeleteMapping("/post/{id}")
     @ResponseBody
-    public ResponseEntity<String> deletePost(@PathVariable("id") int id){
-        try{
-        boardService.deletePost(id);
-            return new ResponseEntity<>("ok", HttpStatus.OK);
-        }catch (PostNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<BoardResponseDto> deletePost(@PathVariable("id") int id){
+        return boardService.deletePost(id);
     }
 
     @PostMapping("/post/update/{id}")
     @ResponseBody
-    public ResponseEntity<String> updatePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id, Post post){
-        Post nowPost = boardService.getPost(id);
+    public ResponseEntity<BoardResponseDto> updatePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id, Post post){
 
-        nowPost.setAuthor_id(user.getUserId());
-        nowPost.setTitle(post.getTitle());
-        nowPost.setContent(post.getContent());
-
-        boardService.savePost(user,nowPost);
-        return new ResponseEntity<>("ok",HttpStatus.OK);
+        return boardService.updatePost(id,post);
     }
 
     @PostMapping("/post/{id}/like")
     @ResponseBody
-    public ResponseEntity<String> likePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id){
-        boardService.likePost(id);
-
-        return new ResponseEntity<>("ok",HttpStatus.OK);
+    public ResponseEntity<BoardResponseDto> likePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id){
+        return boardService.likePost(id);
     }
 
     @PostMapping("/post/{id}/dislike")
     @ResponseBody
-    public ResponseEntity<Post> dislikePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id){
-        Post post = boardService.dislikePost(id);
-
-        return new ResponseEntity<>(post,HttpStatus.OK);
+    public ResponseEntity<BoardResponseDto> dislikePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id){
+        return boardService.dislikePost(id);
     }
 
 
