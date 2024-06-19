@@ -19,11 +19,9 @@ public class Comment {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id",referencedColumnName = "id")
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="author_id",referencedColumnName = "id")
     private User author;
 
     private String content;
