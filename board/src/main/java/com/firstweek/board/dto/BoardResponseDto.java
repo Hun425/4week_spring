@@ -2,6 +2,7 @@ package com.firstweek.board.dto;
 
 import com.firstweek.board.entity.Post;
 import com.firstweek.comment.domain.Comment;
+import com.firstweek.comment.dto.CommentResponseDto;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +13,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -34,10 +36,9 @@ public class BoardResponseDto {
     private LocalDateTime created_at;
 
 
-    private List<Comment> comments;
+    private List<CommentResponseDto> comments;
 
     public BoardResponseDto(Post post) {
-
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
@@ -47,6 +48,8 @@ public class BoardResponseDto {
         this.likes = post.getLikes();
         this.dislikes = post.getDislikes();
         this.created_at = post.getCreated_at();
-        this.comments = post.getComments();
+        this.comments = post.getComments().stream()
+                .map(comment -> new CommentResponseDto(comment))
+                .collect(Collectors.toList());
     }
 }

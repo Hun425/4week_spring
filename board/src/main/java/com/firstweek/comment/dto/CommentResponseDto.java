@@ -4,10 +4,7 @@ import com.firstweek.board.entity.Post;
 import com.firstweek.comment.domain.Comment;
 import com.firstweek.security.domain.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -16,10 +13,11 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CommentResponseDto {
     private Integer id;
 
-    private Post post;
+
 
     private User author;
 
@@ -35,7 +33,6 @@ public class CommentResponseDto {
 
     public CommentResponseDto(Comment comment) {
         this.id = comment.getId();
-        this.post = comment.getPost();
         this.author = comment.getAuthor();
         this.content = comment.getContent();
         this.created_at = comment.getCreated_at();
@@ -43,4 +40,5 @@ public class CommentResponseDto {
         this.dislikes = comment.getDislikes();
         this.reply_count = comment.getReply_count();
     }
+
 }

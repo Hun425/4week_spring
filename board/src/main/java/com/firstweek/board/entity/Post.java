@@ -1,5 +1,6 @@
 package com.firstweek.board.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.firstweek.comment.domain.Comment;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,7 +31,8 @@ public class Post {
     @CreationTimestamp
     private LocalDateTime created_at;
 
-    @OneToMany(mappedBy="post", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="post", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("post")
     private List<Comment> comments = new ArrayList<>();
 
     @Override

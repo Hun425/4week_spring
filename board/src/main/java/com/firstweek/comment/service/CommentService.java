@@ -1,23 +1,10 @@
 package com.firstweek.comment.service;
 
-import com.firstweek.comment.domain.Comment;
-import com.firstweek.comment.repository.CommentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.firstweek.comment.dto.CommentRequestDto;
+import com.firstweek.comment.dto.CommentResponseDto;
+import org.springframework.http.ResponseEntity;
 
-@Service
-public class CommentService {
+public interface CommentService {
 
-    @Autowired
-    private final CommentRepository commentRepository;
-
-    public CommentService(CommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
-    }
-
-    public Comment savedComment(Comment comment) {
-        return commentRepository.save(comment);
-    }
-
-
+    ResponseEntity<CommentResponseDto> savedComment(CommentRequestDto commentRequestDto);
 }

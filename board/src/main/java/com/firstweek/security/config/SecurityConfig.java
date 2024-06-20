@@ -1,10 +1,13 @@
 package com.firstweek.security.config;
 
 
+import com.firstweek.security.domain.CustomUser;
+import com.firstweek.security.domain.User;
 import com.firstweek.security.filter.JwtAuthFilter;
 import com.firstweek.security.filter.RefreshTokenFilter;
 import com.firstweek.security.handler.UserLoginFailHandler;
 import com.firstweek.security.jwt.JwtUtil;
+import com.firstweek.security.repository.UserRepository;
 import com.firstweek.security.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -62,7 +65,12 @@ public class SecurityConfig {
         http.sessionManagement(sessionManagemet -> sessionManagemet.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         //FormLogin, BasicHttp  비활성화
-        http.formLogin(formLogin -> formLogin.loginProcessingUrl("/login"));
+        http.formLogin(formLogin -> formLogin.loginProcessingUrl("/login")
+                .successHandler((request, response, authentication) -> {
+                    String username = authentication.getName();
+                    User user= new User();
+
+                }));
         http.httpBasic((httpBasic)->httpBasic.disable());
 
         //JSTAuthFilter를 UsernamePasswordAuthenticationFilter 앞에 추가
