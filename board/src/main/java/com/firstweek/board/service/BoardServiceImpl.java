@@ -1,6 +1,8 @@
 package com.firstweek.board.service;
 
 import com.firstweek.board.dto.BoardResponseDto;
+import com.firstweek.exception.CustomException;
+import com.firstweek.exception.NewException;
 import com.firstweek.security.domain.CustomUser;
 import com.firstweek.board.entity.Post;
 import com.firstweek.board.exception.PostNotFoundException;
@@ -21,6 +23,11 @@ public class BoardServiceImpl implements BoardService {
 
     public ResponseEntity<BoardResponseDto> savePost(CustomUser user, Post post){
 
+        if(post.getTitle()==null || post.getTitle().equals("")|| post.getTitle().trim().isEmpty()
+                || post.getContent()==null || post.getContent().equals("") || post.getContent().trim().isEmpty()){
+            throw new CustomException(NewException.NOT_VALID_ERROR);
+        }
+
         post.setAuthor_id(user.getUserId());
         boardRepository.save(post);
 
@@ -38,20 +45,20 @@ public class BoardServiceImpl implements BoardService {
     }
 
     public ResponseEntity<BoardResponseDto> getPost(int postId){
-            Post post = boardRepository.findById(postId).orElse(null);
+            Post post = boardRepository.findById(postId).orElseThrow(()->new CustomException(NewException.POST_NOT_FOUND));
         return new ResponseEntity<>(new BoardResponseDto(post), HttpStatus.OK);
     }
 
     public ResponseEntity<BoardResponseDto> deletePost(int postId){
 
-        Post post = boardRepository.findById(postId).orElseThrow(()->new PostNotFoundException(postId+"번 게시글이 존재하지 않습니다."));
+        Post post = boardRepository.findById(postId).orElseThrow(()->new CustomException(NewException.POST_NOT_FOUND));
         boardRepository.delete(post);
 
         return new ResponseEntity<>(new BoardResponseDto(post), HttpStatus.OK);
     }
 
     public ResponseEntity<BoardResponseDto> likePost(int postId){
-        Post post = boardRepository.findById(postId).orElseThrow(()->new PostNotFoundException(postId+"번 게시글이 존재하지 않습니다."));
+        Post post = boardRepository.findById(postId).orElseThrow(()->new CustomException(NewException.POST_NOT_FOUND));
 
         int like = post.getLikes();
         post.setLikes(++like);
@@ -61,7 +68,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     public ResponseEntity<BoardResponseDto> dislikePost(int postId){
-        Post post = boardRepository.findById(postId).orElseThrow(()->new PostNotFoundException(postId+"번 게시글이 존재하지 않습니다."));
+        Post post = boardRepository.findById(postId).orElseThrow(()->new CustomException(NewException.POST_NOT_FOUND));
 
         int dislike = post.getDislikes();
         post.setDislikes(++dislike);
@@ -72,6 +79,10 @@ public class BoardServiceImpl implements BoardService {
     public ResponseEntity<BoardResponseDto> updatePost(int postId, Post post){
         Post nowPost = boardRepository.findById(postId).orElse(null);
 
+        if(post.getTitle()==null || post.getTitle().equals("")|| post.getTitle().trim().isEmpty()
+                || post.getContent()==null || post.getContent().equals("") || post.getContent().trim().isEmpty()){
+            throw new CustomException(NewException.NOT_VALID_ERROR);
+        }
 
         nowPost.setTitle(post.getTitle());
         nowPost.setContent(post.getContent());
