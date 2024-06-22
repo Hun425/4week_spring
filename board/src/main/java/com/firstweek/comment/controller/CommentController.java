@@ -52,7 +52,7 @@ public class CommentController {
             return ResponseEntity.notFound().build();
         }
 
-        User author = userRepository.findByUsername(userDetails.getUsername());
+        User author = userRepository.findByUsername(userDetails.getUsername()).orElseGet(null);
 
         if(author == null) {
             return ResponseEntity.notFound().build();

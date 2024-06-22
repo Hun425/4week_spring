@@ -4,10 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class User  {
 
 
@@ -18,5 +21,8 @@ public class User  {
     private String password;
     private String username;
 
-
+    @Builder
+    public User(String username) {
+        this.username = username;
+    }
 }

@@ -36,12 +36,12 @@ public class LoginService implements AuthService {
     @Override
     @Transactional
     public TokenPair login(String username){
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username).orElseGet(null);
         if(user==null){
             throw new UsernameNotFoundException("존재하지 않는 유저입니다");
         }
 
-        CustomUser info = new CustomUser(userRepository.findByUsername(username));
+        CustomUser info = new CustomUser(userRepository.findByUsername(username).orElseGet(null));
         TokenPair Token = jwtUtil.generateToken(info);
 
         return Token;

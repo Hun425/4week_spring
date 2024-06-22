@@ -43,6 +43,7 @@ public class JwtUtil {
         return new TokenPair(accessToken,refreshToken);
     }
 
+
     /**
      * JWT 생성
      * @param customUser
@@ -65,6 +66,22 @@ public class JwtUtil {
                 .compact();
     }
 
+
+    private String createToken(String userId, String username,long accessTokenExpTime) {
+        Claims claims = Jwts.claims();
+        claims.put("userId", userId);
+        claims.put("username",username);
+
+        ZonedDateTime now = ZonedDateTime.now();
+        ZonedDateTime tokenValidity = now.plusSeconds(accessTokenExpTime);
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setIssuedAt(Date.from(now.toInstant()))
+                .setExpiration(Date.from(tokenValidity.toInstant()))
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    }
     /**
      * Token에서 userId 추출
      * @param token

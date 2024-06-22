@@ -20,13 +20,14 @@ import java.util.Optional;
 @Service
 public class CommentServiceImpl {
 
-    @Autowired
+
     private final CommentRepository commentRepository;
-    @Autowired
+
     private BoardRepository boardRepository;
-    @Autowired
+
     private UserRepository userRepository;
 
+    @Autowired
     public CommentServiceImpl(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }

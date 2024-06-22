@@ -45,10 +45,11 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests((requests)->requests
-                        .requestMatchers("/login","/register","/").permitAll()
+                        .requestMatchers("/login/**","/register","/").permitAll()
                         .requestMatchers("/post/**").authenticated()
                         .anyRequest().permitAll()
                 )
+
                 .logout(logout->{
                     logout.logoutUrl("/logout");
                     logout.logoutSuccessUrl("/");
@@ -86,4 +87,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 }

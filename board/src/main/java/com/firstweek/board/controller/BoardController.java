@@ -18,9 +18,10 @@ import java.util.List;
 @RestController
 public class BoardController {
 
-    @Autowired
+
     private final BoardServiceImpl boardService;
 
+    @Autowired
     public BoardController(BoardServiceImpl boardService) {
         this.boardService = boardService;
     }
@@ -32,7 +33,6 @@ public class BoardController {
     }
 
     @PostMapping("/post")
-    @ResponseBody
     public ResponseEntity<BoardResponseDto> boardPost(@AuthenticationPrincipal CustomUser user, Post post){
         return boardService.savePost(user,post);
     }
@@ -43,38 +43,32 @@ public class BoardController {
     }
 
     @GetMapping("/post/list")
-    @ResponseBody
     public ResponseEntity<List<BoardResponseDto>> boardList(Model model){
         return boardService.listPost();
     }
 
     @GetMapping("/post/{id}")
-    @ResponseBody
     public ResponseEntity<BoardResponseDto> boardDetail(@PathVariable("id") int id){
         return boardService.getPost(id);
     }
 
     @DeleteMapping("/post/{id}")
-    @ResponseBody
     public ResponseEntity<BoardResponseDto> deletePost(@PathVariable("id") int id){
         return boardService.deletePost(id);
     }
 
     @PostMapping("/post/update/{id}")
-    @ResponseBody
     public ResponseEntity<BoardResponseDto> updatePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id, Post post){
 
         return boardService.updatePost(id,post);
     }
 
     @PostMapping("/post/{id}/like")
-    @ResponseBody
     public ResponseEntity<BoardResponseDto> likePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id){
         return boardService.likePost(id);
     }
 
     @PostMapping("/post/{id}/dislike")
-    @ResponseBody
     public ResponseEntity<BoardResponseDto> dislikePost(@AuthenticationPrincipal CustomUser user, @PathVariable("id") int id){
         return boardService.dislikePost(id);
     }
